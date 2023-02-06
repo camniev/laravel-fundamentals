@@ -1,5 +1,6 @@
 <?php
 
+use App\Product;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -83,3 +84,28 @@ Route::get('/about', 'PageController@about');
 //route for import excel
 Route::get('/import_excel', 'ImportExcelController@index');
 Route::post('/import_excel/import', 'ImportExcelController@import');
+
+//code(s) to check if the web app is connected to the database or not
+// Route::get('/db', function() {
+//     try {
+//         DB::connection()->getPdo();
+//         echo "Connected!" . DB::connection()->getDatabaseName();
+//     } catch (\Exception $e) {
+//         echo "Not connected. :(";
+//     }
+// });
+
+//create table using migration
+//php artisan make:migration create_products_table
+
+
+// to insert data, make a simple route such as below
+Route::get('/insert', function() {
+    Product::insert([
+        'name' => 'Sample',
+        'price' => '100'
+    ]);
+});
+
+// to insert multiple rows of random data, use seeder
+// php artisan make:seeder ProductSeeder
