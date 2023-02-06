@@ -175,6 +175,9 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        //After installing maatwebsite/excel thru composer, add this line to config/app.php
+        Maatwebsite\Excel\ExcelServiceProvider::class,
+
     ],
 
     /*
@@ -226,6 +229,8 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+        //After installing maatwebsite/excel thru composer, add this line to config/app.php
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
 
     ],
 

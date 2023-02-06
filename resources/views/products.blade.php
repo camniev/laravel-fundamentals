@@ -1,7 +1,6 @@
 @extends('layouts.app')
 @section('content')
 <h1>{{ $title }}</h1>
-<div class="container">
     <div class="row">
         @foreach($products as $product)
             <!-- component can be used for repeating sections such as this one -->
@@ -18,6 +17,5 @@
             <x-card :name="$product['name']" :price="$product['price']"></x-card>
         @endforeach
     </div>
-</div>
 
 @endsection

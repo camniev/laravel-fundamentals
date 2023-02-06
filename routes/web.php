@@ -79,3 +79,7 @@ Route::get('/', function () {
 Route::get('/home', 'PageController@index');
 Route::get('/products', 'PageController@products');
 Route::get('/about', 'PageController@about');
+
+//route for import excel
+Route::get('/import_excel', 'ImportExcelController@index');
+Route::post('/import_excel/import', 'ImportExcelController@import');
