@@ -78,7 +78,7 @@ Route::get('/', function () {
 // });
 
 Route::get('/home', 'PageController@index');
-Route::get('/products', 'PageController@products');
+Route::get('/products', 'ProductController@products');
 Route::get('/about', 'PageController@about');
 
 //route for import excel
@@ -109,3 +109,13 @@ Route::get('/insert', function() {
 
 // to insert multiple rows of random data, use seeder
 // php artisan make:seeder ProductSeeder
+
+// FEB 12, 2023
+// ELOQUENT - active record implementation of the databases; make database interaction easier
+// first, create a model and migration
+// php artisan make:model Brand -m
+// then run migration with: php artisan migrate
+
+
+// SOFT DELETE - deleting a record without actually removing it from the database
+// proceed to model to implement soft delete

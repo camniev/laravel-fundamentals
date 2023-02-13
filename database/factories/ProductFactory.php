@@ -19,7 +19,7 @@ use Illuminate\Support\Str;
 
 $factory->define(Product::class, function (Faker $faker) {
     return [
-        'name' => $faker->name,
+        'name' => 'Product-' . Str::random(5),
         'price' => 100
     ];
 });

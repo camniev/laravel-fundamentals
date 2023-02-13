@@ -14,7 +14,9 @@
             </div> -->
 
             <!-- add colon before the variable only when the data is dynamic, otherwise, remove it -->
-            <x-card :name="$product['name']" :price="$product['price']"></x-card>
+
+            <!-- since eloquent is now used, we can use arrow key to access a variable -->
+            <x-card :name="$product->name" :price="$product->price"></x-card>
         @endforeach
     </div>
 
