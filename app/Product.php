@@ -16,6 +16,8 @@ class Product extends Model
 
     public $timestamps = false;
 
+    protected $fillable = ['name','price','quantity'];
+
     //calling global scope WithStock
     public static function booted() {
         //one way of adding global scope - create a scope class and add it here

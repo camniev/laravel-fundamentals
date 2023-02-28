@@ -93,16 +93,55 @@ class ProductController extends Controller
         //check laravel docs for list of validation rules
         // | - delimiter
         $request->validate([
-            'prod_name' => 'required|alpha',
-            'prod_quantity' => 'required|numeric',
-            'prod_price' => 'required|numeric'
+            'name' => 'required|alpha',
+            'quantity' => 'required|numeric',
+            'price' => 'required|numeric'
         ]);
 
         //to display error, go back to create.blade.php
         // @error
 
+        //to save form data, we can use create method in Product model
+        Product::create($request->all());
+        //next, set fillable property inside Product model
+
         //to display success message, type the ff.
         //use associative array
         return redirect()->back()->with(['message' => 'Success']);
+    }
+
+    public function list() {
+        //use eloquent's paginate method 
+        //$products = Product::paginate(10);
+
+        $products = Product::all();
+        return view('product.list', compact('products'));
+    }
+
+    public function edit(Request $request) {
+        //pass the description of the "product" to be edited
+        //to do that, use Request
+        //get the permission of the ID first passed to the URL
+        $product = Product::find($request->id);
+        return view('product.edit', compact('product'));
+    }
+
+    public function update(Request $request) {
+        //form validation
+        $request->validate([
+            'name' => 'required|alpha',
+            'quantity' => 'required|numeric',
+            'price' => 'required|numeric'
+        ]);
+
+        Product::find($request->id)->update($request->all());
+
+        return redirect()->back()->with(['message' => 'Updated successfully.']);
+    }
+
+    public function delete(Request $request) {
+        $product = Product::find($request->id)->delete();
+
+        return redirect()->route('product.list');
     }
 }

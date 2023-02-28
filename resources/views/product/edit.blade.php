@@ -16,26 +16,27 @@
     @endif
     
     <!-- declare route inside action -->
-    <form action="{{ route('product.name') }}" method="post">
+    <form action="{{ route('product.update') }}" method="post">
         <!-- when you submit without the required token, it displays error 419 -->
         @csrf
+        <input type="hidden" name="id" value="{{ $product->id }}">
         <div class="form-group">
             <label for="prodNameId">Product Name</label>
-            <input type="text" class="form-control" id="prodNameId" name="name" placeholder="Enter product name">
+            <input type="text" class="form-control" id="prodNameId" name="name" placeholder="Enter product name" value="{{ $product->name }}">
             @error('name')
                 <small class="text-danger">{{ $message }}</small>
             @enderror
         </div>
         <div class="form-group">
             <label for="quantityId">Quantity</label>
-            <input type="text" class="form-control" id="quantityId" name="quantity" placeholder="Enter quantity">
+            <input type="text" class="form-control" id="quantityId" name="quantity" placeholder="Enter quantity" value="{{ $product->quantity }}">
             @error('quantity')
                 <small class="text-danger">{{ $message }}</small>
             @enderror
         </div>
         <div class="form-group">
             <label for="priceId">Price</label>
-            <input type="text" class="form-control" id="priceId" name="price" placeholder="Enter price">
+            <input type="text" class="form-control" id="priceId" name="price" placeholder="Enter price" value="{{ $product->price }}">
             @error('price')
                 <small class="text-danger">{{ $message }}</small>
             @enderror

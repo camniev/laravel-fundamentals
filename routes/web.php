@@ -131,11 +131,17 @@ Route::group(['prefix' => 'products'], function() {
     Route::get('/withStock', 'ProductController@withStock');
 
     //route to display form for "create products "
-    Route::get('/create', 'ProductController@create');
+    Route::get('/create', 'ProductController@create')->name('product.create');
 
     //create another route to handle user input
     //assign name to this route
     Route::post('/store', 'ProductController@store')->name('product.name');
+
+    //CRUD
+    Route::get('/list', 'ProductController@list')->name('product.list');;
+    Route::get('/edit', 'ProductController@edit')->name('product.edit');
+    Route::post('/update', 'ProductController@update')->name('product.update');
+    Route::post('/delete', 'ProductController@delete')->name('product.delete');
 });
 
 // Feb 27, 2023
@@ -143,3 +149,13 @@ Route::group(['prefix' => 'products'], function() {
 // we use forms to fetch data from end-users
 // before it is saved to the database, the data has to be validated
 // create form under views folder
+
+//Feb 28, 2023
+//CRUD
+//using eloquent's paginate method
+// <!-- create pagination links -->
+// <!-- {{ $products->links() }} -->
+
+//<!-- use @stack to put all the scripts from the view (display from the layout.app) -->
+
+//<!-- //forward scripts to stack using @push inside the view -->

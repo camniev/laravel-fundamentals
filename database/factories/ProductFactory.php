@@ -18,8 +18,11 @@ use Illuminate\Support\Str;
 */
 
 $factory->define(Product::class, function (Faker $faker) {
+    //str::random() - laravel helper
+    //more about laravel helper - https://laravel.com/docs/10.x/helpers
     return [
         'name' => 'Product-' . Str::random(5),
-        'price' => 100
+        'price' => 100,
+        'quantity' => 0
     ];
 });
