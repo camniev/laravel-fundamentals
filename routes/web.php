@@ -103,7 +103,8 @@ Route::post('/import_excel/import', 'ImportExcelController@import');
 Route::get('/insert', function() {
     Product::insert([
         'name' => 'Sample',
-        'price' => '100'
+        'price' => '100',
+        'quantity' => '12'
     ]);
 });
 
@@ -119,3 +120,26 @@ Route::get('/insert', function() {
 
 // SOFT DELETE - deleting a record without actually removing it from the database
 // proceed to model to implement soft delete
+
+// Feb 24, 2023
+// SCOPE - method in our model where it adds database logic in the model
+// Three types: Global, Local and Dynamic Scope
+
+// routes for scope
+Route::group(['prefix' => 'products'], function() {
+    Route::get('/outOfStock', 'ProductController@outOfStock');
+    Route::get('/withStock', 'ProductController@withStock');
+
+    //route to display form for "create products "
+    Route::get('/create', 'ProductController@create');
+
+    //create another route to handle user input
+    //assign name to this route
+    Route::post('/store', 'ProductController@store')->name('product.name');
+});
+
+// Feb 27, 2023
+// FORM VALIDATION
+// we use forms to fetch data from end-users
+// before it is saved to the database, the data has to be validated
+// create form under views folder
