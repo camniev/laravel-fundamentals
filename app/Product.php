@@ -16,7 +16,7 @@ class Product extends Model
 
     public $timestamps = false;
 
-    protected $fillable = ['name','price','quantity'];
+    protected $fillable = ['name','price','quantity','brand_id'];
 
     //calling global scope WithStock
     public static function booted() {
@@ -41,5 +41,19 @@ class Product extends Model
     // to handle error, assign a value to the second parameter
     public function scopeWithStock($query, $quantity = 0) {
         return $query->where('quantity', '>', $quantity);
+    }
+
+    public function details() {
+        //use the method for one-to-one relationship
+        return $this->hasOne('App\ProductDetail');
+    }
+
+    public function brand() {
+        return $this->belongsTo('App\Brand');
+    }
+
+    //add new function for many to many
+    public function categories() {
+        return $this->belongsToMany('App\Category');
     }
 }

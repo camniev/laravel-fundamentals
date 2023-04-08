@@ -41,6 +41,13 @@
                 <small class="text-danger">{{ $message }}</small>
             @enderror
         </div>
+        <div class="form-group d-none">
+            <label for="priceId">Brand ID</label>
+            <input type="text" class="form-control" id="brandId" name="brand_id" value="{{ $product->price }}" placeholder="Enter price">
+            @error('price')
+                <small class="text-danger">{{ $message }}</small>
+            @enderror
+        </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </div>
