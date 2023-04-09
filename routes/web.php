@@ -2,8 +2,11 @@
 
 use App\Brand;
 use App\Category;
+use App\Mail\WelcomeMail;
 use App\Product;
 use App\ProductDetail;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -42,12 +45,12 @@ Route::get('/', function () {
 // });
 
 //one way to access route - assign a name
-// Route::get('user/', function() {
-//     $names = ['Johnny','Johnny','Yes','Papa'];
-//     foreach($names as $name) {
-//         print($name).'<br/>';
-//     }
-// })->name('userList');
+Route::get('user/', function() {
+    $names = ['Johnny','Johnny','Yes','Papa'];
+    foreach($names as $name) {
+        print($name).'<br/>';
+    }
+})->name('userList');
 
 // Route::get('/user/{index}/{name?}', function($index, $name="Test") {
 //     //line to redirect 
@@ -269,3 +272,51 @@ Route::get('/invmanytomany', function() {
     $product = Category::find(2)->products;
     dd($product->toArray());
 });
+
+//===========================
+// APRIL 8, 2023
+// *** AUTHENTICATION
+// Systems require access to confidential data to certain users
+// to integrate Authentication to the system, require Laravel UI
+// to do that, type "composer require laravel/ui"
+// and then after installing laravel/ui, type "php artisan ui:auth" in cmd
+
+//below codes added when php artisan ui:auth is ran
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+// *** EMAIL
+// adds email functionality to system to provide notifications thru email
+// to start, type "php artisan make:mail WelcomeMail -m emails.welcome"
+// WelcomeMail - Class name
+// -m template or view name of email
+// emails.welcome - folder
+
+//to view the design of welcome email blade
+Route::get('/email', function() {
+    
+    //code to test if the app can send email/s
+    // Mail::to('kyliemadel@gmail.com')->send(new WelcomeMail());
+
+    //lines to send product data to email
+    $product = Product::find(13);
+    Mail::to('kyliemadel@gmail.com')->send(new WelcomeMail($product));
+
+    //return new WelcomeMail();
+});
+
+// to change the default Laravel logo inside welcome email blade, go to .env and change the APP_NAME
+// APP_NAME changed to Laravel Fundamentals
+// to edit the body of the email, got to welcome.blade.php
+
+// the welcomeemail currently uses markdown syntax where it is used to construct email messages
+// for more components, check documentation: https://laravel.com/docs/7.x/mail
+
+// to send emails, set mailer configuration first inside .env file
+
+//stopped at 6:34 - Google Account settings - App passwords and generate password
+
+//to send emails, go back to the route
+
+//to send product data from the database to email, first go to WelcomeMail class
