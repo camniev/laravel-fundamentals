@@ -25,4 +25,8 @@ class HomeController extends Controller
     {
         return view('home');
     }
+
+    public function test() {
+        return "<h1>Sample String</h1>";
+    }
 }

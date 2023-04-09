@@ -132,7 +132,8 @@ Route::get('/insert', function() {
 // Three types: Global, Local and Dynamic Scope
 
 // routes for scope
-Route::group(['prefix' => 'products'], function() {
+// middleware implemented
+Route::group(['prefix' => 'products', 'middleware' => 'Admin'], function() {
     Route::get('/outOfStock', 'ProductController@outOfStock');
     Route::get('/withStock', 'ProductController@withStock');
 
@@ -320,3 +321,32 @@ Route::get('/email', function() {
 //to send emails, go back to the route
 
 //to send product data from the database to email, first go to WelcomeMail class
+
+// April 9, 2022
+// MIDDLEWARE - filters or protects a route before it is accessed
+// one example of a middleware is the authentication. before you can access
+// the home page, you must login first
+
+// middleware auth testing; check if the page can be accessed without login in
+Route::get('/test', 'HomeController@test')->name('home');
+
+// auth middleware can be found inside Kernel.php: protected $routedMiddleware
+// auth middleware can also be found inside App\Http\Middleware\Authenticate.php as a class
+
+// to create a custom middleware, type the ff. to the cmd: "php artisan make:middleware AdminMiddleware
+// AdminMiddleware - created to only give access to administrator
+
+// sample route for admin access
+Route::get('/admin', function() {
+    return "<h1>This is an administrator page</h1>";
+})->middleware('Admin');
+
+// then go to kernel to implement auth middleware for admin access and add the below line
+// 'Admin' => \App\Http\Middleware\AdminMiddleware::class,
+
+// next, add user type to the users table by typing the ff. to cmd:
+// php artisan make:migration add_user_type_to_users then php artisan migrate
+// go to AdminMiddleware to add lines of code authenticating if a user is a normal user or an administrator
+
+// you can also implement a middleware in a group, go to products group
+
